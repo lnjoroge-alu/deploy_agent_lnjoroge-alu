@@ -102,7 +102,7 @@ if [[ "$UPDATE" == "y" || "$UPDATE" == "yes" ]]; then
     if (f < 0 || f > 100) exit 1;
     if (f >= w) exit 2;
     exit 0;
-  }'
+  }'</dev/null
   # catches awk exit code and exit program with appropriate message if thresholds are invalid
   rc=$?
   if [[ $rc -eq 1 ]]; then die "Thresholds must be between 0 and 100."; fi

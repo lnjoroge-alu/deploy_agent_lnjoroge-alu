@@ -14,3 +14,13 @@ read -r -p "Enter project identifier (used in attendance_tracker_{input}): " INP
 # Set project directory and archive name based on user input
 PROJECT_DIR="attendance_tracker_${INPUT}"
 ARCHIVE_NAME="attendance_tracker_${INPUT}_archive.tar.gz"
+
+
+# Function to check if the directory already exists and exit with message if true
+if [[ -e "$PROJECT_DIR" ]]; then
+  die "Directory '$PROJECT_DIR' already exists. Remove it or choose a different input."
+fi
+
+# Create project structure with necessary directories
+mkdir -p "$PROJECT_DIR/Helpers" "$PROJECT_DIR/reports" \
+  || die "Failed to create directories (permissions?)."

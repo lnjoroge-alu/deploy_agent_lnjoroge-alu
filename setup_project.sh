@@ -84,7 +84,7 @@ if [[ "$UPDATE" == "y" || "$UPDATE" == "yes" ]]; then
     if (f >= w) exit 2;
     exit 0;
   }'
-  # catches awk exit code
+  # catches awk exit code and exit program with appropriate message if thresholds are invalid
   rc=$?
   if [[ $rc -eq 1 ]]; then die "Thresholds must be between 0 and 100."; fi
   if [[ $rc -eq 2 ]]; then die "Failure threshold should be less than warning threshold."; fi
@@ -101,3 +101,29 @@ if [[ "$UPDATE" == "y" || "$UPDATE" == "yes" ]]; then
 else
   info "Keeping default thresholds."
 fi
+
+
+# Run heath check, python + file existence
+echo
+info "Running Health Check..."
+
+if command -v python3 >/dev/null 2>&1; then
+  PYV="$(python3 --version 2>&1 || true)"
+  info "python3 found: $PYV"
+else
+  warn "python3 is missing. Install Python 3 to run attendance_checker.py"
+fi
+
+REQUIRED_PATHS=(
+  "$PROJECT_DIR/attendance_checker.py"
+  "$PROJECT_DIR/Helpers/assets.csv"
+  "$PROJECT_DIR/Helpers/config.json"
+  "$PROJECT_DIR/reports/reports.log"
+)
+
+for p in "${REQUIRED_PATHS[@]}"; do
+  [[ -e "$p" ]] || die "Health Check failed: missing required path: $p"
+done
+
+info "Health Check passed. Project bootstrapped successfully."
+info "Next: cd '$PROJECT_DIR' && python3 attendance_checker.py"

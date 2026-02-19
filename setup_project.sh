@@ -5,6 +5,11 @@ die()  { echo "Error: $*" >&2; exit 1; }
 warn() { echo "Warning: $*" >&2; }
 info() { echo "[INFO] $*"; }
 
+# Number checker function to validate input as a number
+is_number() {
+  [[ "${1:-}" =~ ^[0-9]+([.][0-9]+)?$ ]]
+}
+
 
 # Read user input for project identifier and validate it
 read -r -p "Enter project identifier (used in attendance_tracker_{input}): " INPUT 

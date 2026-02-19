@@ -26,3 +26,21 @@ info "Creating project structure in: $PROJECT_DIR"
 
 mkdir -p "$PROJECT_DIR/Helpers" "$PROJECT_DIR/reports" \
   || die "Failed to create directories (permissions?)."
+
+
+# Set up source files
+SOURCE_DIR="./source_files"
+[[ -d "$SOURCE_DIR" ]] || die "Missing '$SOURCE_DIR' directory. Create it and put the provided files inside."
+
+REQUIRED_SOURCES=(
+  "$SOURCE_DIR/attendance_checker.py"
+  "$SOURCE_DIR/assets.csv"
+  "$SOURCE_DIR/config.json"
+  "$SOURCE_DIR/reports.log"
+)
+
+for f in "${REQUIRED_SOURCES[@]}"; do
+  [[ -f "$f" ]] || die "Missing required source file: $f"
+done
+
+info "Source files verified."

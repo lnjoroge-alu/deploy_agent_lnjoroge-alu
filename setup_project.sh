@@ -11,3 +11,6 @@ read -r -p "Enter project identifier (used in attendance_tracker_{input}): " INP
 [[ -n "${INPUT// }" ]] || die "Input cannot be empty."
 
 
+# Set project directory and archive name based on user input
+PROJECT_DIR="attendance_tracker_${INPUT}"
+ARCHIVE_NAME="attendance_tracker_${INPUT}_archive.tar.gz"

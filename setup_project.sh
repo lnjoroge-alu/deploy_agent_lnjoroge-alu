@@ -1,4 +1,4 @@
-#!/bin/env bash
+#!/usr/bin/env bash
 
 # Helper functions for error handling 
 die()  { echo "Error: $*" >&2; exit 1; }

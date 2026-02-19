@@ -22,5 +22,7 @@ if [[ -e "$PROJECT_DIR" ]]; then
 fi
 
 # Create project structure with necessary directories
+info "Creating project structure in: $PROJECT_DIR"
+
 mkdir -p "$PROJECT_DIR/Helpers" "$PROJECT_DIR/reports" \
   || die "Failed to create directories (permissions?)."

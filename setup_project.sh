@@ -21,6 +21,25 @@ PROJECT_DIR="attendance_tracker_${INPUT}"
 ARCHIVE_NAME="attendance_tracker_${INPUT}_archive.tar.gz"
 
 
+# signal interrupt handler to clean up and archive
+cleanup_on_interrupt() {
+  echo
+  warn "SIGINT detected (Ctrl+C). Archiving current state and cleaning up..."
+
+  if [[ -d "$PROJECT_DIR" ]]; then
+    tar -czf "$ARCHIVE_NAME" "$PROJECT_DIR" 2>/dev/null || warn "Failed to create archive."
+    rm -rf "$PROJECT_DIR" || warn "Failed to remove incomplete directory."
+    info "Archive created: $ARCHIVE_NAME"
+    info "Incomplete directory removed: $PROJECT_DIR"
+  else
+    warn "Nothing to archive (project directory not found)."
+  fi
+
+  exit 130
+}
+
+trap cleanup_on_interrupt INT
+
 # Function to check if the directory already exists and exit with message if true
 if [[ -e "$PROJECT_DIR" ]]; then
   die "Directory '$PROJECT_DIR' already exists. Remove it or choose a different input."

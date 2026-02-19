@@ -39,8 +39,15 @@ REQUIRED_SOURCES=(
   "$SOURCE_DIR/reports.log"
 )
 
+
 for f in "${REQUIRED_SOURCES[@]}"; do
   [[ -f "$f" ]] || die "Missing required source file: $f"
 done
 
 info "Source files verified."
+
+
+cp "$SOURCE_DIR/attendance_checker.py" "$PROJECT_DIR/"       || die "Failed to copy attendance_checker.py"
+cp "$SOURCE_DIR/assets.csv"          "$PROJECT_DIR/Helpers/" || die "Failed to copy assets.csv"
+cp "$SOURCE_DIR/config.json"         "$PROJECT_DIR/Helpers/" || die "Failed to copy config.json"
+cp "$SOURCE_DIR/reports.log"         "$PROJECT_DIR/reports/" || die "Failed to copy reports.log"

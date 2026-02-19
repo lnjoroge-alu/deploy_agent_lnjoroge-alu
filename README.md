@@ -150,7 +150,7 @@ Warnings are shown if Python is missing, but execution remains controlled.
 
  Automation        -     Bash scripting           
  Validation         -    Regex + `awk`            
- Configuration Editing  -`sed`                    
+ Configuration Editing  - `sed`                    
  Signal Handling    -    `trap`                   
  Archiving         -     `tar`                    
  Error Handling     - Custom logging functions 
